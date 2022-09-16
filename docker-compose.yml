@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  app:
+    image: resonator
+    container_name: resonator_dev
+    profiles: ["dev"]
+    network_mode: traefik
+    build:
+      context: ./
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules #empty mount to not overwrite node_modules
+      - $PWD/dist:/app/dist
+    environment:
+      - NODE_ENV="development"
+    # depends_on:
+    # - db
+
+  nginx:
+    image: nginx:latest
+    container_name: resonator_nginx
+    profiles: ["prod"]
+    volumes:
+      - $PWD/dist:/usr/share/nginx/html
+    restart: unless-stopped
+    network_mode: traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`resonate.agentzhao.me`)"
+      - "traefik.http.routers.web.tls=true"
+      - "traefik.http.routers.web.tls.certresolver=lets-encrypt"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.port=80"
