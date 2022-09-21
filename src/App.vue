@@ -1,22 +1,17 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-</script>
-
 <template>
   <div class="w-screen h-screen bg-zinc-800">
-    <div class="flex flex-col justify-center items-center mx-auto w-2/3">
-      <h1 class="mt-10 text-3xl text-white">Resonator</h1>
-
-      <button class="py-2 px-4 mt-10 bg-white rounded-md text-zinc-800">
-        YouTube
-      </button>
-      <button class="py-2 px-4 mt-10 bg-white rounded-md text-zinc-800">
-        Spotify
-      </button>
-    </div>
+    <!-- <nav> -->
+    <!--   <RouterLink to="/">Home</RouterLink> -->
+    <!--   <RouterLink to="/spotify">Spotify</RouterLink> -->
+    <!--   <RouterLink to="/youtube">Youtube</RouterLink> -->
+    <!-- </nav> -->
+    <RouterView />
   </div>
 </template>
+
+<script setup lang="ts">
+import { RouterLink, RouterView } from "vue-router";
+</script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400&family=Open+Sans:wght@300;400;500;700&display=swap");

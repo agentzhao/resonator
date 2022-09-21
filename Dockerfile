@@ -1,14 +1,9 @@
-FROM node:lts-alpine
+FROM node:18-alpine3.15
 
-# set the working direction
 WORKDIR /app
 
 COPY package*.json ./
 
-# USER node
-# RUN npm --global config set user node \
-#   && npm --global --quiet --no-progress install \
-#   && npm cache clean --force
 RUN npm install
 
 COPY . ./
