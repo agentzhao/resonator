@@ -1,10 +1,5 @@
 <template>
   <div class="w-screen h-screen bg-zinc-800">
-    <!-- <nav> -->
-    <!--   <RouterLink to="/">Home</RouterLink> -->
-    <!--   <RouterLink to="/spotify">Spotify</RouterLink> -->
-    <!--   <RouterLink to="/youtube">Youtube</RouterLink> -->
-    <!-- </nav> -->
     <RouterView />
   </div>
 </template>
