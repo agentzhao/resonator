@@ -16,6 +16,12 @@
         type="text"
         placeholder="Artist name"
       />
+      <input
+        v-model="receiverID"
+        class="py-2 px-4 my-2 mr-2 bg-white rounded-md text-zinc-800"
+        type="text"
+        placeholder="Receiver ID"
+      />
       <button type="submit" :onclick="sendSpotify">
         <font-awesome-icon
           class="h-10 hover:text-gray-300 icons"
@@ -34,19 +40,20 @@ import axios from "axios";
 
 const track = ref("");
 const artist = ref("");
+var receiverID = ref("");
 
 // websocket
 // const socket = new WebSocket("ws://localhost:8080");
-const socket = new WebSocket("wss://sock.agentzhao.me");
+const ws = new WebSocket("wss://sock.agentzhao.me");
 
 // Connection opened
-socket.addEventListener("open", function (event) {
+ws.addEventListener("open", function (event) {
   console.log("Connected to WS Server");
 });
 
 // Listen for messages
-socket.addEventListener("message", function (event) {
-  console.log("Message from server:", event.data);
+ws.addEventListener("message", function (event) {
+  console.log("Message from server ", event.data);
 });
 
 const sendSpotify = () => {
@@ -61,12 +68,10 @@ const sendSpotify = () => {
     .then((res) => {
       console.log(res.data);
       var spotify = {
-        from: "resonator",
-        to: "receiver",
-        songName: track.value,
+        id: receiverID.value,
         songUrl: res.data,
       };
-      socket.send(JSON.stringify(spotify));
+      ws.send(JSON.stringify(spotify));
     })
     .catch((err) => {
       console.log(err);

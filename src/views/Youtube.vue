@@ -10,6 +10,12 @@
         type="text"
         placeholder="Song name"
       />
+      <input
+        v-model="receiverID"
+        class="py-2 px-4 my-2 mr-2 bg-white rounded-md text-zinc-800"
+        type="text"
+        placeholder="Receiver ID"
+      />
       <button type="submit" @click="sendYoutube">
         <font-awesome-icon
           class="h-10 hover:text-gray-300 icons"
@@ -27,19 +33,19 @@ import { ref } from "vue";
 import axios from "axios";
 
 const songName = ref("");
+var receiverID = ref("");
 
 // websocket
 // const socket = new WebSocket("ws://localhost:8080");
-const socket = new WebSocket("wss://sock.agentzhao.me");
+const ws = new WebSocket("wss://sock.agentzhao.me");
 
 // Connection opened
-socket.addEventListener("open", function (event) {
+ws.addEventListener("open", function (event) {
   console.log("Connected to WS Server");
 });
 
-// Listen for messages
-socket.addEventListener("message", function (event) {
-  console.log("Message from server:", event.data);
+ws.addEventListener("message", (event) => {
+  console.log("Message from server ", event.data);
 });
 
 const sendYoutube = () => {
@@ -49,12 +55,11 @@ const sendYoutube = () => {
     .then((res) => {
       console.log(res.data);
       var youtube = {
-        from: "resonator",
-        to: "receiver",
-        songName: songName.value,
+        id: receiverID.value,
         songUrl: res.data,
       };
-      socket.send(JSON.stringify(youtube));
+      console.log("sending this out: " + JSON.stringify(youtube));
+      ws.send(JSON.stringify(youtube));
     })
     .catch((err) => {
       console.log(err);
