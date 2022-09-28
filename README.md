@@ -1,6 +1,21 @@
-# vite-project
+# Resonator
 
-This template should help get you started developing with Vue 3 in Vite.
+### Websocket
+
+Host(`example.com`) && PathPrefix(`/ws/`)
+
+### Labels
+
+labels:
+
+- traefik.enable=true
+- traefik.docker.network=proxy
+- traefik.http.services.phabricator.loadbalancer.server.port=80
+- traefik.backend=phabricator
+- traefik.http.routers.phabricator.rule=Host(`phabricator.docker.localhost`)
+- traefik.wss.routers.phabricator.rule=HostRegexp(`phabricator.docker.localhost:22280`)
+- traefik.wss.protocol=ws
+- traefik.wss.port=22280
 
 ## Recommended IDE Setup
 
@@ -13,8 +28,8 @@ TypeScript cannot handle type information for `.vue` imports by default, so we r
 If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
 1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
 ## Customize configuration

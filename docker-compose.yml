@@ -25,12 +25,12 @@ services:
     profiles: ["prod"]
     volumes:
       - $PWD/dist:/usr/share/nginx/html
-    restart: unless-stopped
+    restart: always
     network_mode: traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.web.rule=Host(`resonate.agentzhao.me`)"
-      - "traefik.http.routers.web.tls=true"
-      - "traefik.http.routers.web.tls.certresolver=lets-encrypt"
-      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.resonator.rule=Host(`resonator.agentzhao.me`)"
+      - "traefik.http.routers.resonator.tls=true"
+      - "traefik.http.routers.resonator.tls.certresolver=lets-encrypt"
+      - "traefik.http.routers.resonator.entrypoints=websecure"
       - "traefik.port=80"
