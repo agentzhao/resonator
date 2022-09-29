@@ -36,7 +36,6 @@ const songName = ref("");
 var receiverID = ref("");
 
 // websocket
-// const socket = new WebSocket("ws://localhost:8080");
 const ws = new WebSocket("wss://sock.agentzhao.me");
 
 // Connection opened
@@ -55,6 +54,7 @@ const sendYoutube = () => {
     .then((res) => {
       console.log(res.data);
       var youtube = {
+        platform: "youtube",
         id: receiverID.value,
         songUrl: res.data,
       };

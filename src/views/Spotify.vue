@@ -68,6 +68,7 @@ const sendSpotify = () => {
     .then((res) => {
       console.log(res.data);
       var spotify = {
+        platform: "spotify",
         id: receiverID.value,
         songUrl: res.data,
       };
