@@ -22,9 +22,9 @@
       <p class="text-white">Receivers Connected:</p>
       <!-- <p class="text-white">{{ clients }}</p> -->
       <ol>
-        <li v-for="client in clients">
-          {{ client.uuid }}
-        </li>
+        <!-- <li v-for="client in clients"> -->
+        <!--   {{ client.uuid }} -->
+        <!-- </li> -->
       </ol>
       <button type="submit" @click="refreshClients">
         <font-awesome-icon

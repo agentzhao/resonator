@@ -125,13 +125,13 @@ let usermode = false;
 let length = 0;
 let trigger = false;
 
-function down(e) {
+function down(e: { preventDefault: () => void }) {
   if (usermode == false) {
     e.preventDefault();
   }
 }
 
-function processInput(e) {
+function processInput(e: { keyCode: number; key: any }) {
   var spacebar = 32;
   var backspace = 8;
   if (usermode == false) {
