@@ -3,24 +3,37 @@
     <h1 class="my-10 text-3xl text-white">Youtube</h1>
 
     <p class="text-white">Enter song name:</p>
-    <div class="flex">
+    <div class="flex flex-col">
       <input
         v-model="songName"
         class="py-2 px-4 my-2 mr-2 bg-white rounded-md text-zinc-800"
         type="text"
         placeholder="Song name"
       />
-      <input
-        v-model="receiverID"
-        class="py-2 px-4 my-2 mr-2 bg-white rounded-md text-zinc-800"
-        type="text"
-        placeholder="Receiver ID"
-      />
-      <button type="submit" @click="sendYoutube">
+      <button
+        class="bg-white rounded-md text-zinc-800"
+        type="submit"
+        @click="sendYoutube"
+      >
+        Send
+      </button>
+    </div>
+    <div class="flex flex-col items-center mt-10 justify-centre">
+      <p class="text-white">Receivers Connected:</p>
+      <!-- <p class="text-white">{{ clients }}</p> -->
+      <ol>
+        <li v-for="client in clients">
+          {{ client.uuid }}
+        </li>
+      </ol>
+      <button type="submit" @click="refreshClients">
         <font-awesome-icon
-          class="h-10 hover:text-gray-300 icons"
-          icon="fa-solid fa-paper-plane"
+          class="h-7 hover:text-gray-300 icons"
+          icon="fa-solid fa-rotate"
         />
+      </button>
+      <button class="text-white" type="submit" @click="logClients">
+        clients
       </button>
     </div>
     <NavBar />
@@ -33,7 +46,22 @@ import { ref } from "vue";
 import axios from "axios";
 
 const songName = ref("");
-var receiverID = ref("");
+let clients: {};
+
+function logClients() {
+  console.log(clients);
+}
+
+function refreshClients() {
+  axios
+    .get("http://sock.agentzhao.me/clients")
+    .then((response) => {
+      clients = { ...response.data };
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 // websocket
 const ws = new WebSocket("wss://sock.agentzhao.me");
@@ -44,18 +72,21 @@ ws.addEventListener("open", function (event) {
 });
 
 ws.addEventListener("message", (event) => {
-  console.log("Message from server ", event.data);
+  console.log("Message from server:", event.data);
+  try {
+    JSON.parse(event.data);
+  } catch (e) {
+    console.log("error");
+  }
 });
 
 const sendYoutube = () => {
   axios
-    // .get("http://localhost:8080/searchyoutube?q=" + songName.value)
     .get("https://sock.agentzhao.me/searchyoutube?q=" + songName.value)
     .then((res) => {
       console.log(res.data);
       var youtube = {
         platform: "youtube",
-        id: receiverID.value,
         songUrl: res.data,
       };
       console.log("sending this out: " + JSON.stringify(youtube));

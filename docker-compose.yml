@@ -5,7 +5,6 @@ services:
     image: resonator
     container_name: resonator_dev
     profiles: ["dev"]
-    network_mode: traefik
     build:
       context: ./
     ports:
@@ -13,11 +12,8 @@ services:
     volumes:
       - .:/app
       - /app/node_modules #empty mount to not overwrite node_modules
-      - $PWD/dist:/app/dist
     environment:
       - NODE_ENV="development"
-    # depends_on:
-    # - db
 
   nginx:
     image: nginx:latest

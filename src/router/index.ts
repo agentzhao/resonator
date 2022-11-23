@@ -19,6 +19,11 @@ const router = createRouter({
       name: "spotify",
       component: () => import("../views/Spotify.vue"),
     },
+    {
+      path: "/solo",
+      name: "solo",
+      component: () => import("../views/Solo.vue"),
+    },
   ],
 });
 

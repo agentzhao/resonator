@@ -11,11 +11,34 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* import specific icons */
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faKeyboard,
+  faMicrophone,
+  faAngleLeft,
+  faHouse,
+  faAngleRight,
+  faRotate,
+} from "@fortawesome/free-solid-svg-icons";
 
-import { faYoutube, faSpotify } from "@fortawesome/free-brands-svg-icons";
+import {
+  faYoutube,
+  faSpotify,
+  faGoogle,
+} from "@fortawesome/free-brands-svg-icons";
 
-library.add(faYoutube, faSpotify, faPaperPlane);
+library.add(
+  faYoutube,
+  faSpotify,
+  faGoogle,
+  faMagnifyingGlass,
+  faKeyboard,
+  faMicrophone,
+  faAngleLeft,
+  faHouse,
+  faAngleRight,
+  faRotate
+);
 
 const app = createApp(App);
 app.use(router);
