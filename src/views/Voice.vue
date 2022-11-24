@@ -1,25 +1,12 @@
 <template>
   <div class="flex flex-col justify-center items-center mx-auto w-2/3">
-    <h1 class="my-10 text-3xl text-white">Youtube</h1>
-
-    <p class="text-white">Enter song name:</p>
-    <div class="flex flex-col">
-      <input
-        v-model="songName"
-        class="py-2 px-4 my-2 mr-2 bg-white rounded-md text-zinc-800"
-        type="text"
-        placeholder="Song name"
+    <h1 class="my-10 text-3xl text-white">Voice</h1>
+    <button type="submit" @click="voiceRecognition">
+      <font-awesome-icon
+        class="text-gray-300 hover:text-white icons"
+        icon="fa-solid fa-microphone"
       />
-      <div class="mx-auto">
-        <button
-          class="py-1 px-3 mt-2 bg-white rounded-md text-zinc-800"
-          type="submit"
-          @click="sendYoutube"
-        >
-          Send
-        </button>
-      </div>
-    </div>
+    </button>
 
     <!-- Receivers -->
     <div class="flex flex-col items-center mt-10 justify-centre">
@@ -36,6 +23,7 @@
         />
       </button>
     </div>
+
     <NavBar />
   </div>
 </template>
@@ -46,7 +34,6 @@ import { ref } from "vue";
 import axios from "axios";
 
 const songName = ref("");
-const clients = ref(null);
 
 // websocket
 const ws = new WebSocket("wss://sock.agentzhao.me");

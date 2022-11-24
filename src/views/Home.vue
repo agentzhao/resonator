@@ -7,15 +7,13 @@
         <font-awesome-icon
           class="hover:text-white text-[#4285F4] icons"
           icon="fa-brands fa-google"
-          title="Solo"
         />
-        <div class="text-sm text-center text-white font-OpenSans">YouTube</div>
+        <div class="text-sm text-center text-white font-OpenSans">Solo</div>
       </router-link>
       <router-link to="/youtube">
         <font-awesome-icon
           class="hover:text-white text-[#FF0000] icons"
           icon="fa-brands fa-youtube"
-          title="YouTube"
         />
         <div class="text-sm text-center text-white font-OpenSans">YouTube</div>
       </router-link>
@@ -23,17 +21,15 @@
         <font-awesome-icon
           class="icons hover:text-white text-[#1DB954]"
           icon="fa-brands fa-spotify"
-          title="Spotify"
         />
         <div class="text-sm text-center text-white font-OpenSans">Spotify</div>
       </router-link>
-      <router-link to="/spotify">
+      <router-link to="/voice">
         <font-awesome-icon
-          class="icons hover:text-[#1DB954]"
-          icon="fa-brands fa-spotify"
-          title="Spotify"
+          class="text-gray-300 hover:text-white icons"
+          icon="fa-solid fa-microphone"
         />
-        <div class="text-sm text-center text-white font-OpenSans">WIP</div>
+        <div class="text-sm text-center text-white font-OpenSans">Voice</div>
       </router-link>
     </div>
     <NavBar />

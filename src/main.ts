@@ -13,7 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 /* import specific icons */
 import {
   faMagnifyingGlass,
-  faKeyboard,
   faMicrophone,
   faAngleLeft,
   faHouse,
@@ -32,7 +31,6 @@ library.add(
   faSpotify,
   faGoogle,
   faMagnifyingGlass,
-  faKeyboard,
   faMicrophone,
   faAngleLeft,
   faHouse,

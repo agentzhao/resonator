@@ -82,7 +82,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="fixed bottom-0 w-full">
+    <footer class="absolute bottom-0 w-full">
       <div class="footer-content upper-footer">
         <p>Singapore</p>
       </div>

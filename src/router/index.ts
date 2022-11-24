@@ -24,6 +24,11 @@ const router = createRouter({
       name: "solo",
       component: () => import("../views/Solo.vue"),
     },
+    {
+      path: "/voice",
+      name: "voice",
+      component: () => import("../views/Voice.vue"),
+    },
   ],
 });
 

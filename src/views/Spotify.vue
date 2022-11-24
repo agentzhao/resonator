@@ -3,7 +3,7 @@
     <h1 class="my-10 text-3xl text-white">Spotify</h1>
 
     <p class="text-white">Enter song name:</p>
-    <div class="flex">
+    <div class="flex flex-col">
       <input
         v-model="track"
         class="py-2 px-4 my-2 mr-2 bg-white rounded-md text-zinc-800"
@@ -16,16 +16,29 @@
         type="text"
         placeholder="Artist name"
       />
-      <input
-        v-model="receiverID"
-        class="py-2 px-4 my-2 mr-2 bg-white rounded-md text-zinc-800"
-        type="text"
-        placeholder="Receiver ID"
-      />
-      <button type="submit" :onclick="sendSpotify">
+      <div class="mx-auto">
+        <button
+          class="py-1 px-3 mt-2 bg-white rounded-md text-zinc-800"
+          type="submit"
+          @click="sendSpotify"
+        >
+          Send
+        </button>
+      </div>
+    </div>
+
+    <!-- Receivers -->
+    <div class="flex flex-col items-center mt-10 justify-centre">
+      <p class="text-white">Receivers Connected:</p>
+      <ol>
+        <li class="text-sm text-white" v-for="client in clients">
+          {{ client.ip }}
+        </li>
+      </ol>
+      <button type="submit" @click="refreshClients">
         <font-awesome-icon
-          class="h-10 hover:text-gray-300 icons"
-          icon="fa-solid fa-paper-plane"
+          class="h-7 hover:text-gray-300 icons"
+          icon="fa-solid fa-rotate"
         />
       </button>
     </div>
@@ -40,10 +53,9 @@ import axios from "axios";
 
 const track = ref("");
 const artist = ref("");
-var receiverID = ref("");
+const clients = ref(null);
 
 // websocket
-// const socket = new WebSocket("ws://localhost:8080");
 const ws = new WebSocket("wss://sock.agentzhao.me");
 
 // Connection opened
@@ -69,7 +81,6 @@ const sendSpotify = () => {
       console.log(res.data);
       var spotify = {
         platform: "spotify",
-        id: receiverID.value,
         songUrl: res.data,
       };
       ws.send(JSON.stringify(spotify));
@@ -78,6 +89,17 @@ const sendSpotify = () => {
       console.log(err);
     });
 };
+
+function refreshClients() {
+  axios
+    .get("http://sock.agentzhao.me/clients")
+    .then((response) => {
+      clients.value = response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 </script>
 
 <style scoped></style>
