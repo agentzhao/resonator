@@ -59,6 +59,7 @@
             type="text"
             @keydown="down($event)"
             @keyup="processInput($event)"
+            @click="hideFooter()"
           />
           <font-awesome-icon
             class="mr-4 text-gray-400"
@@ -69,7 +70,9 @@
           <button class="google-search-btn" type="submit" @click="searchGoogle">
             Google Search
           </button>
-          <button class="lucky-search-btn">I'm Feeling Lucky</button>
+          <button class="lucky-search-btn" @click="hideFooter()">
+            I'm Feeling Lucky
+          </button>
         </div>
         <div class="language">
           <p>
@@ -82,7 +85,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="absolute bottom-0 w-full">
+    <footer class="fixed bottom-0 w-full">
       <div class="footer-content upper-footer">
         <p>Singapore</p>
       </div>
@@ -117,6 +120,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import axios from "axios";
+
 const presetSearch = ref("number of songs in the world");
 const searchInput = ref("");
 const songName = ref("");
@@ -131,6 +135,11 @@ function down(e: { preventDefault: () => void }) {
   }
 }
 
+function hideFooter() {}
+window.addEventListener("resize", () => {
+  document.getElementsByTagName("footer")[0].style.display = "none";
+});
+
 function processInput(e: { keyCode: number; key: any }) {
   var spacebar = 32;
   var backspace = 8;
@@ -139,8 +148,10 @@ function processInput(e: { keyCode: number; key: any }) {
     searchInput.value = presetSearch.value.substring(0, length);
 
     if (e.keyCode === backspace) {
+      length -= 2;
       trigger = false;
       songName.value = songName.value.substring(0, length);
+      searchInput.value = presetSearch.value.substring(0, length);
     } else if (e.keyCode === spacebar) {
       if (trigger == false) {
         songName.value += e.key;
@@ -165,6 +176,12 @@ function searchGoogle() {
 // websocket
 var receiverID = ref(123);
 const ws = new WebSocket("wss://sock.agentzhao.me");
+
+// ws.on("open", heartbeat);
+// ws.on("ping", heartbeat);
+// ws.on("close", function clear() {
+//   clearTimeout(this.pingTimeout);
+// });
 
 // Connection opened
 ws.addEventListener("message", (event) => {
@@ -193,6 +210,14 @@ const sendYoutube = () => {
       console.log(err);
     });
 };
+
+// function heartbeat() {
+//   clearTimeout(this.pingTimeout);
+//
+//   this.pingTimeout = setTimeout(() => {
+//     this.terminate();
+//   }, 30000 + 1000);
+// }
 </script>
 
 <style scoped>

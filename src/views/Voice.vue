@@ -13,7 +13,7 @@
       <p class="text-white">Receivers Connected:</p>
       <ol>
         <li class="text-sm text-white" v-for="client in clients">
-          {{ client.ip }}
+          {{ client["ip"] }}
         </li>
       </ol>
       <button type="submit" @click="refreshClients">
@@ -34,6 +34,7 @@ import { ref } from "vue";
 import axios from "axios";
 
 const songName = ref("");
+const clients = ref(null);
 
 // websocket
 const ws = new WebSocket("wss://sock.agentzhao.me");
@@ -71,7 +72,7 @@ const sendYoutube = () => {
 
 function refreshClients() {
   axios
-    .get("http://sock.agentzhao.me/clients")
+    .get("https://sock.agentzhao.me/clients")
     .then((response) => {
       // string2 = JSON.stringify(response.data, null, 2);
       clients.value = response.data;
@@ -79,6 +80,10 @@ function refreshClients() {
     .catch((error) => {
       console.log(error);
     });
+}
+
+function voiceRecognition() {
+  console.log("voice recognition");
 }
 </script>
 

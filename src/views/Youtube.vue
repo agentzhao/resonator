@@ -26,7 +26,7 @@
       <p class="text-white">Receivers Connected:</p>
       <ol>
         <li class="text-sm text-white" v-for="client in clients">
-          {{ client.ip }}
+          {{ client["ip"] }}
         </li>
       </ol>
       <button type="submit" @click="refreshClients">
@@ -84,7 +84,7 @@ const sendYoutube = () => {
 
 function refreshClients() {
   axios
-    .get("http://sock.agentzhao.me/clients")
+    .get("https://sock.agentzhao.me/clients")
     .then((response) => {
       // string2 = JSON.stringify(response.data, null, 2);
       clients.value = response.data;
