@@ -174,7 +174,6 @@ function searchGoogle() {
 }
 
 // websocket
-var receiverID = ref(123);
 const ws = new WebSocket("wss://sock.agentzhao.me");
 
 // ws.on("open", heartbeat);
@@ -186,11 +185,6 @@ const ws = new WebSocket("wss://sock.agentzhao.me");
 // Connection opened
 ws.addEventListener("message", (event) => {
   console.log("Message from server:", event.data);
-  try {
-    JSON.parse(event.data);
-  } catch (e) {
-    receiverID = event.data.split("receiver ")[1];
-  }
 });
 
 const sendYoutube = () => {
@@ -200,7 +194,6 @@ const sendYoutube = () => {
       console.log(res.data);
       var youtube = {
         platform: "youtube",
-        id: receiverID.value,
         songUrl: res.data,
       };
       console.log("sending this out:" + JSON.stringify(youtube));
